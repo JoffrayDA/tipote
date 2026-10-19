@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tipote</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="theme-color" content="#1f4e5a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=VT323&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<section class="select" id="select" hidden>
+  <h1>Tipote</h1>
+  <p class="lead">Choisis ton compagnon. Chaque espèce a son caractère.</p>
+  <div class="species-grid" id="species-grid"></div>
+  <p class="trait" id="trait" aria-live="polite"></p>
+  <div class="adopt">
+    <label for="new-name">Son nom</label>
+    <input id="new-name" maxlength="10" value="Mochi">
+    <button type="button" id="adopt">Adopter</button>
+  </div>
+</section>
+
+<section class="play" id="play" hidden>
+  <div class="shell">
+    <div class="brand">Tipote</div>
+    <div class="bezel">
+      <div class="top">
+        <input id="pet-name" maxlength="10" aria-label="Nom de ton compagnon">
+        <span id="age">Œuf</span>
+      </div>
+      <div class="lcd" id="lcd">
+        <canvas id="screen" width="320" height="200" aria-label="Écran : touche l'œuf, l'animal ou les cacas"></canvas>
+        <div class="msg" id="msg" aria-live="polite"></div>
+      </div>
+      <div class="stats" id="stats"></div>
+    </div>
+  </div>
+  <div class="keys" id="keys"></div>
+  <p class="hint">Touche l’écran : un câlin sur l’animal, un nettoyage sur le caca. Il continue de vivre quand la page est fermée.</p>
+  <button type="button" class="restart" id="restart">Changer de compagnon</button>
+</section>
+
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
