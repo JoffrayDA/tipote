@@ -1,6 +1,6 @@
 // Interface : écran de choix d'espèce, boutons, écran tactile, boucle de jeu.
 import { SPECIES, speciesById } from './species.js';
-import { petSprite, eggSprite } from './sprites.js';
+import { petSprite, eggSprite, ICONS } from './sprites.js';
 import * as Pet from './pet.js';
 import * as Store from './storage.js';
 import { createRenderer, drawPreview } from './render.js';
@@ -115,25 +115,46 @@ function pickSide(side) {
 function renderKeys() {
   const keys = $('keys');
   keys.innerHTML = '';
-  const add = (label, onClick, cls = '') => {
+  const add = (label, icon, onClick, cls = '') => {
     const b = document.createElement('button');
-    b.type = 'button'; b.textContent = label; b.className = cls;
+    b.type = 'button'; b.className = 'key ' + cls;
+    const cap = document.createElement('span');
+    cap.className = 'cap';
+    cap.append(iconCanvas(ICONS[icon]));
+    b.append(cap, label);
     b.addEventListener('click', onClick);
     keys.append(b);
   };
-  if (pet.dead) { add('Adopter un nouvel œuf', showSelect, 'wide'); return; }
-  if (sc.game) {
-    add('◀ Gauche', () => pickSide(-1));
-    add('Arrêter', () => { sc.game = null; renderKeys(); }, 'ghost');
-    add('Droite ▶', () => pickSide(1));
+  if (pet.dead) {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'pill'; b.textContent = 'Adopter un nouvel œuf';
+    b.addEventListener('click', showSelect);
+    keys.append(b);
     return;
   }
-  add('Repas', () => doAction('meal'));
-  add('Friandise', () => doAction('candy'));
-  add('Jouer', () => doAction('play'));
-  add('Nettoyer', () => doAction('clean'));
-  add('Soigner', () => doAction('heal'));
-  add(pet.sleeping ? 'Allumer' : 'Éteindre', () => doAction('light'));
+  if (sc.game) {
+    add('Gauche', 'left', () => pickSide(-1));
+    add('Arrêter', 'stop', () => { sc.game = null; renderKeys(); }, 'ghost');
+    add('Droite', 'right', () => pickSide(1));
+    return;
+  }
+  add('Repas', 'meal', () => doAction('meal'));
+  add('Friandise', 'candy', () => doAction('candy'));
+  add('Jouer', 'play', () => doAction('play'));
+  add('Nettoyer', 'clean', () => doAction('clean'));
+  add('Soigner', 'heal', () => doAction('heal'));
+  add(pet.sleeping ? 'Allumer' : 'Éteindre', pet.sleeping ? 'wake' : 'sleep', () => doAction('light'));
+}
+
+// Icône en pixels blancs, centrée dans un carré 7 × 7
+function iconCanvas(rows) {
+  const s = 4, c = document.createElement('canvas');
+  c.width = c.height = 7 * s;
+  const g = c.getContext('2d');
+  g.fillStyle = '#fff6f0';
+  const oy = Math.floor((7 - rows.length) / 2), ox = Math.floor((7 - rows[0].length) / 2);
+  rows.forEach((r, y) => [...r].forEach((ch, x) => ch === '#' && g.fillRect((ox + x) * s, (oy + y) * s, s, s)));
+  return c;
 }
 
 // Écran tactile : œuf, cacas, câlins
