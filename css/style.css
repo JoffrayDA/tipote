@@ -31,6 +31,7 @@ body {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
 }
+[hidden] { display: none !important; }
 button { font-family: inherit; }
 button:focus-visible, input:focus-visible { outline: 3px solid var(--paper); outline-offset: 3px; }
 
@@ -41,17 +42,17 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--paper); out
   color: var(--shell); text-shadow: 0 5px 0 var(--shell-dark); letter-spacing: -0.01em;
 }
 .select .lead { margin: 0; text-align: center; font-size: 17px; opacity: .85; text-wrap: balance; }
-.species-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.species-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; width: 100%; max-width: 330px; margin: 0 auto; }
 .trait { margin: 0; text-align: center; font-size: 16px; min-height: 2.6em; text-wrap: balance; }
 .trait b { color: var(--shell); }
 .species {
   background: var(--paper); color: var(--bezel); border: 3px solid transparent; border-radius: 16px;
-  padding: 6px 6px 8px; display: grid; gap: 2px; text-align: center; cursor: pointer; align-content: start;
+  padding: 4px 4px 6px; display: grid; gap: 1px; text-align: center; cursor: pointer; align-content: start;
   box-shadow: 0 4px 0 rgba(0, 0, 0, .2);
 }
 .species canvas { width: 100%; height: auto; border-radius: 8px; image-rendering: pixelated; margin-bottom: 4px; }
 .species .kind { font-size: 10px; text-transform: uppercase; letter-spacing: .12em; color: var(--key-dark); font-weight: 600; }
-.species b { font-size: 16px; font-weight: 600; }
+.species b { font-size: 14px; font-weight: 600; }
 .species[aria-pressed="true"] { border-color: var(--key); transform: translateY(-2px); box-shadow: 0 6px 0 var(--key-dark); }
 .adopt { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; align-items: center; }
 .adopt label { font-size: 15px; }
