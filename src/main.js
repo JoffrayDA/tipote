@@ -236,3 +236,8 @@ if (pet) {
   say(pet.dead ? '' : `Re-bonjour ${pet.name} !`);
 } else showSelect();
 requestAnimationFrame(loop);
+
+// Rend le jeu installable comme une appli (GitHub Pages / serveur local)
+if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
