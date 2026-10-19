@@ -260,5 +260,10 @@ requestAnimationFrame(loop);
 
 // Rend le jeu installable comme une appli (GitHub Pages / serveur local)
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+  // Nouvelle version installée alors que l'ancienne tournait : on recharge une fois pour l'afficher
+  const hadController = !!navigator.serviceWorker.controller;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (hadController) { if (pet) persist(); location.reload(); }
+  });
   navigator.serviceWorker.register('sw.js').catch(() => {});
 }
